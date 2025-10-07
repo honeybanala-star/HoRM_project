@@ -9,8 +9,12 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     - Convert time-like columns to hours
     - Fill missing values with 0
     """
-    time_cols = ['Avg. In Time', 'Avg. Out Time', 'Avg. Office hrs',
-                 'Avg. Bay hrs', 'Avg. Break hrs', 'Avg. Cafeteria hrs', 'Avg. OOO hrs']
+    time_cols = ['Avg. In Time', 
+    'Avg. Out Time', 
+    'Avg. Break Hrs', 
+    'Avg. Cafeteria Hrs', 
+    'Avg. Office Hrs',
+    'Avg. OOO Hrs']
 
     for col in time_cols:
         if col in df.columns:
@@ -33,20 +37,19 @@ def get_employee_kpis(df: pd.DataFrame, employee_id: int) -> dict:
         return {}
 
     emp_stats = emp_df.agg({
-        'Avg. In Time': 'mean',
-        'Avg. Out Time': 'mean',
-        'Avg. Office hrs': 'mean',
-        'Avg. Bay hrs': 'mean',
-        'Avg. Break hrs': 'mean',
-        'Avg. Cafeteria hrs': 'mean',
-        'Avg. OOO hrs': 'mean',
-        'Unbilled': 'sum',
-        'Half-Day leave': 'sum',
-        'Full-Day leave': 'sum',
-        'Online Check-in': 'sum',
-        'Excemptions': 'sum',
-        'Allocation': 'count'
-    })
+    'Avg. In Time': 'mean',
+    'Avg. Out Time': 'mean',
+    'Avg. Break Hrs': 'mean',
+    'Avg. Cafeteria Hrs': 'mean',
+    'Avg. Office Hrs': 'mean',
+    'Avg. OOO Hrs': 'mean',
+    'Full Day Leave': 'sum',
+    'Half Day Leave': 'sum',
+    'Online Checkin Pct': 'mean',
+    'Unbilled Hrs': 'sum',
+    'Allocation': 'count'
+})
+
 
 
     return emp_stats.to_dict()
