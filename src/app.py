@@ -19,11 +19,17 @@ st.markdown("Enter an Employee ID or Employee Name below to explore detailed KPI
 # -----------------------
 @st.cache_data
 def load_and_prepare():
-    df = load_data()
-    return preprocess_data(df)
+    try:
+        df = load_data()
+        # any data prep steps here
+        return df
+    except Exception as e:
+        st.error(f"Error loading data: {e}")
+        return None
 
 df = load_and_prepare()
-
+if df is not None:
+    st.dataframe(df.head())
 # -----------------------
 # 🔎 Employee Input
 # -----------------------
